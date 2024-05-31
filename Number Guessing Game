@@ -1,0 +1,74 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class NumberGuessingGameMenuDriven {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        boolean exit = false;
+
+        while (!exit) {
+            System.out.println("=== Number Guessing Game ===");
+            System.out.println("1. Play Game");
+            System.out.println("2. View Rules");
+            System.out.println("3. Exit");
+            System.out.print("Choose an option: ");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    playGame(scanner);
+                    break;
+                case 2:
+                    viewRules();
+                    break;
+                case 3:
+                    exit = true;
+                    System.out.println("Thank you for playing! Goodbye!");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please select 1, 2, or 3.");
+            }
+        }
+
+        scanner.close();
+    }
+
+    private static void playGame(Scanner scanner) {
+        Random random = new Random();
+        int min = 1;
+        int max = 100;
+        int targetNumber = random.nextInt((max - min) + 1) + min;
+        int guess;
+        int attempts = 0;
+
+        System.out.println("I have selected a number between " + min + " and " + max + ". Try to guess it!");
+
+        while (true) {
+            System.out.print("Enter your guess: ");
+            guess = scanner.nextInt();
+            attempts++;
+
+            if (guess < min || guess > max) {
+                System.out.println("Please enter a number between " + min + " and " + max + ".");
+            } else if (guess < targetNumber) {
+                System.out.println("Too low! Try again.");
+            } else if (guess > targetNumber) {
+                System.out.println("Too high! Try again.");
+            } else {
+                System.out.println("Congratulations! You guessed the correct number: " + targetNumber);
+                System.out.println("It took you " + attempts + " attempts.");
+                break;
+            }
+        }
+    }
+
+    private static void viewRules() {
+        System.out.println("=== Game Rules ===");
+        System.out.println("1. The computer will randomly select a number between 1 and 100.");
+        System.out.println("2. You need to guess the number.");
+        System.out.println("3. After each guess, you will be told whether your guess is too high, too low, or correct.");
+        System.out.println("4. Keep guessing until you find the correct number.");
+        System.out.println("5. Have fun and good luck!");
+        System.out.println("===================");
+    }
+}
